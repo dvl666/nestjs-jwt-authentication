@@ -4,6 +4,7 @@ import { LoginDto } from './dtos/login.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { LocalGuard } from './guards/local.guard';
 import { Request } from 'express';
+import { JwtAuthGuard } from './guards/jwt.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -21,10 +22,11 @@ export class AuthController {
   }
 
   @Get('profile')
+  @UseGuards(JwtAuthGuard)
   profile(
     @Req() req: Request
   ) {
-    req.user
+    console.log('Inside AuthController (profile)', req.user)
   }
 
 }
